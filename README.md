@@ -2,16 +2,13 @@
 Next.js × TypeScript の練習です。  
 
 ## Depends
-- Nuxt.js　^10.2
+- Next.js　^10.2
 - Typescript ^4.2.4
 - Node.js v12.18.1
 
 ## 導入しているもの
 - ress
-- Font Optimizations
-- axios
 - esLint 
-- GitHub CI（Continuous Integration）
 - gitignore
 
 ## Build Setup
