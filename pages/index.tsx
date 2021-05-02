@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import ListItem from '../components/ListItem';
 
 export default function Home() {
   const [list, setList] = useState([
@@ -7,6 +8,11 @@ export default function Home() {
     { id: 2, name: 'fuga' },
   ]);
   const [listLabel, setListLabel] = useState('');
+  const [listId, setListId] = useState(0);
+
+  useEffect(() => {
+    setListId(list.length);
+  }, []);
 
   const formChange = (e) => {
     setListLabel(e.target.value);
@@ -14,7 +20,9 @@ export default function Home() {
 
   const addList = () => {
     if (listLabel !== '') {
-      const newId = list.length;
+      setListId(listId + 1);
+      const newId = listId;
+
       setList((list) => [...list, { id: newId, name: listLabel }]);
       setListLabel('');
     } else {
@@ -43,15 +51,7 @@ export default function Home() {
         >
           追加する
         </button>
-        {list.length > 0 &&
-          list.map((item) => (
-            <p key={item.id}>
-              {item.name}
-              <span className="ml-4">
-                <button onClick={() => deleteList(item.id)}>x</button>
-              </span>
-            </p>
-          ))}
+        <ListItem list={list} deleteList={deleteList} />
       </main>
     </>
   );
