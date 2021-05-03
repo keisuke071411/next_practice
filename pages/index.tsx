@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import ListItem from '../components/ListItem';
 
 export default function Home() {
@@ -30,10 +30,13 @@ export default function Home() {
     }
   };
 
-  const deleteList = (id) => {
-    const filteredLIst = list.filter((list) => list.id !== id);
-    setList(filteredLIst);
-  };
+  const removeItem = useCallback(
+    (id) => {
+      const filteredLIst = list.filter((list) => list.id !== id);
+      setList(filteredLIst);
+    },
+    [list],
+  );
 
   return (
     <>
@@ -51,8 +54,8 @@ export default function Home() {
         >
           追加する
         </button>
-        <ListItem list={list} deleteList={deleteList} />
       </main>
+      <ListItem list={list} removeItem={removeItem} />
     </>
   );
 }

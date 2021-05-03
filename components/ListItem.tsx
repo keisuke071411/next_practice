@@ -1,24 +1,28 @@
 import React, { FC } from 'react';
 
-interface Props {
-  id: number;
-  name: string;
-}
+type Props = {
+  list: {
+    id: number;
+    name: string;
+  }[];
+  removeItem: (id: number) => void;
+};
 
-const ListItem: FC<Props> = React.memo(({ list, deleteList }) => {
+const ListItem: FC<Props> = ({ list, removeItem }) => {
   return (
-    list.length > 0 &&
-    list.map((item) => (
-      <p key={item.id}>
-        {item.name}
-        <span className="ml-4">
-          <button onClick={() => deleteList(item.id)}>x</button>
-        </span>
-      </p>
-    ))
+    <ul className="px-4">
+      {list.length ? (
+        list.map((item) => (
+          <li key={item.id} className="flex">
+            <p className="mr-4">{item.name}</p>
+            <button onClick={() => removeItem(item.id)}>x</button>
+          </li>
+        ))
+      ) : (
+        <p>No Task</p>
+      )}
+    </ul>
   );
-});
+};
 
-ListItem.displayName = 'ListItem';
-
-export default ListItem;
+export default React.memo(ListItem);
